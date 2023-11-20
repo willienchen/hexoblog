@@ -111,10 +111,10 @@
 添加 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-DNET_4_0</span><br></pre></td></tr></table></figure>
 如圖
-<img src="/2019/05/24/unity-swift-issue/other-c-flags.png" class="">
+<img class="other-c-flags.png">
 <hr>
 遇到問題：AVPlayerViewController issue
-<img src="/2019/05/24/unity-swift-issue/issue2.png" class="">
+<img class="issue2.png">
 
 <p>解決辦法：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">新增 framework AVKit</span><br></pre></td></tr></table></figure>
@@ -145,72 +145,88 @@
     <title>手動將 Unity 輸出為 XCode Framework</title>
     <url>/hexoblog/2019/06/19/unity-to-framework/</url>
     <content><![CDATA[<p>這個課題困擾了我很久，終於成功後<br>馬上做個紀錄！</p>
-<p>首先 將 Unity 輸出 iOS Project<br>建立 Cocoa Touch Framework Project<br>建立 Unity Group<br>將 Untiy Export Project 內的 Library , Classes 複製到 剛剛建立的 Unity Group 底下<br>以 Create group 方式 加入專案<br>將 Untiy Export Project 內的 Data 複製到 剛剛建立的 Unity Group 底下<br>以 Create reference 方式 加入專案<br>刪除 reference : Unity/Libraries/libil2cpp</p>
+<p>首先 將 Unity 輸出 iOS Project<br>建立 Cocoa Touch Framework Project<br>建立 Unity Group<br>將 Untiy Export Project 內的 Library , Classes 複製到 剛剛建立的 Unity Group 底下<br>以 Create group 方式 加入專案<br>將 Untiy Export Project 內的 Data 複製到 剛剛建立的 Unity Group 底下<br>以 Create reference 方式 加入專案<br>刪除 reference : Unity&#x2F;Libraries&#x2F;libil2cpp</p>
 <h3 id="將不用編譯之文件從-target-移除"><a href="#將不用編譯之文件從-target-移除" class="headerlink" title="將不用編譯之文件從 target 移除"></a>將不用編譯之文件從 target 移除</h3><p>main.mm<br>DynamicLibEngineAPI-functions.h<br>DynamicLibEngineAPI.mm</p>
 <h3 id="調整-Build-Setting"><a href="#調整-Build-Setting" class="headerlink" title="調整 Build Setting"></a>調整 Build Setting</h3><table>
 <thead>
 <tr>
-<th style="text-align:center">Build Setting</th>
-<th style="text-align:left">Value</th>
+<th align="center">Build Setting</th>
+<th align="left">Value</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">Header Search Paths</td>
-<td style="text-align:left">$(PROJECT)/Unity/Classes <br> $(PROJECT)/Unity/Classes/Native <br> $(PROJECT)/Unity/Libraries/bdwgc/include <br> $(PROJECT)/Unity/Libraries/libil2cpp/include</td>
+<tbody><tr>
+<td align="center">Header Search Paths</td>
+<td align="left">$(PROJECT)&#x2F;Unity&#x2F;Classes <br> $(PROJECT)&#x2F;Unity&#x2F;Classes&#x2F;Native <br> $(PROJECT)&#x2F;Unity&#x2F;Libraries&#x2F;bdwgc&#x2F;include <br> $(PROJECT)&#x2F;Unity&#x2F;Libraries&#x2F;libil2cpp&#x2F;include</td>
 </tr>
 <tr>
-<td style="text-align:center">Other C flags</td>
-<td style="text-align:left">-DINIT_SCRIPTING_BACKEND=1 <br> -fno-strict-overflow <br> -DRUNTIME_IL2CPP=1 <br>  -DNET_4_0</td>
+<td align="center">Other C flags</td>
+<td align="left">-DINIT_SCRIPTING_BACKEND&#x3D;1 <br> -fno-strict-overflow <br> -DRUNTIME_IL2CPP&#x3D;1 <br>  -DNET_4_0</td>
 </tr>
 <tr>
-<td style="text-align:center">Other Linker Flags</td>
-<td style="text-align:left">-weak_framework <br> CoreMotion <br> -weak-lSystem</td>
+<td align="center">Other Linker Flags</td>
+<td align="left">-weak_framework <br> CoreMotion <br> -weak-lSystem</td>
 </tr>
 <tr>
-<td style="text-align:center">Prefix Header</td>
-<td style="text-align:left">$(PROJECT)/Unity/Classes/Prefix.pch</td>
+<td align="center">Prefix Header</td>
+<td align="left">$(PROJECT)&#x2F;Unity&#x2F;Classes&#x2F;Prefix.pch</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="解決使用-Unity-2019-有太多-Warring"><a href="#解決使用-Unity-2019-有太多-Warring" class="headerlink" title="解決使用 Unity 2019 有太多 Warring"></a>解決使用 Unity 2019 有太多 Warring</h3><p>“No previous prototype for function” ,<br>“This function declaration is not a prototype” ,<br>“Code will never be executed”</p>
 <p>調整以下參數忽略掉</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">Build Setting</th>
-<th style="text-align:left">Value</th>
+<th align="center">Build Setting</th>
+<th align="left">Value</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">Missing Function Prototypes</td>
-<td style="text-align:left">No</td>
+<tbody><tr>
+<td align="center">Missing Function Prototypes</td>
+<td align="left">No</td>
 </tr>
 <tr>
-<td style="text-align:center">Strict Prototypes</td>
-<td style="text-align:left">No</td>
+<td align="center">Strict Prototypes</td>
+<td align="left">No</td>
 </tr>
 <tr>
-<td style="text-align:center">Unreachable Code</td>
-<td style="text-align:left">No</td>
+<td align="center">Unreachable Code</td>
+<td align="left">No</td>
 </tr>
-</tbody>
-</table>
-<h3 id="添加-Framework"><a href="#添加-Framework" class="headerlink" title="添加 Framework"></a>添加 Framework</h3><img src="/hexoblog/2019/unity-to-framework/01.png">
-<p><font size="4"><strong>將下列檔案加入 Project</strong></font><br><img src="/hexoblog/2019/unity-to-framework/02.png"><br>可以在<a href="https://github.com/Luka-M/unity-in-framework/tree/master/Framework/SpaceShooter/SpaceShooter" target="_blank" rel="noopener">GitHub</a>下載，感謝Luka的貢獻</p>
-<h3 id="修改程式碼"><a href="#修改程式碼" class="headerlink" title="修改程式碼"></a>修改程式碼</h3><p>Unity/Classes/UnityAppController.mm  L:23<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//include "CrashReporter.h"</span></span><br></pre></td></tr></table></figure></p>
-<p>Unity/Classes/UnityAppController.mm  L:254<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//UnityInitApplicationNoGraphics([[[NSBundle mainBundle] bundlePath] UTF8String]);</span></span><br><span class="line">UnityInitApplicationNoGraphics([[[<span class="built_in">NSBundle</span> bundleForClass:[<span class="keyword">self</span> <span class="keyword">class</span>]] bundlePath] UTF8String]);</span><br></pre></td></tr></table></figure><br>Unity/Classes/UnityAppController.mm  L:484<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//InitCrashHandling();</span></span><br></pre></td></tr></table></figure></p>
-<p>Unity/Classes/UI/UnityAppController+ViewHandling.mm  Line:138<br>將 三行 mark 起來<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">    <span class="built_in">NSAssert</span>(_unityView != <span class="literal">nil</span>, <span class="string">@"_unityView should be inited at this point"</span>);</span><br><span class="line"><span class="comment">//    NSAssert(_window != nil, @"_window should be inited at this point");</span></span><br><span class="line"></span><br><span class="line">    _rootController = [<span class="keyword">self</span> createRootViewController];</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> willStartWithViewController: _rootController];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSAssert</span>(_rootView != <span class="literal">nil</span>, <span class="string">@"_rootView  should be inited at this point"</span>);</span><br><span class="line">    <span class="built_in">NSAssert</span>(_rootController != <span class="literal">nil</span>, <span class="string">@"_rootController should be inited at this point"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//    [_window makeKeyAndVisible];</span></span><br><span class="line">    [<span class="built_in">UIView</span> setAnimationsEnabled: <span class="literal">NO</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> extract it?</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//    ShowSplashScreen(_window);</span></span><br></pre></td></tr></table></figure></p>
-<p>Unity/Classes/UI/UnityAppController+ViewHandling.mm  Line:187<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    remove the following 3 lines since we don't want Unity to install its own UIViewController</span></span><br><span class="line"><span class="comment">//    [_window addSubview: _rootView];</span></span><br><span class="line"><span class="comment">//    _window.rootViewController = _rootController;</span></span><br><span class="line"><span class="comment">//    [_window bringSubviewToFront: _rootView];</span></span><br></pre></td></tr></table></figure></p>
+</tbody></table>
+<h3 id="添加-Framework"><a href="#添加-Framework" class="headerlink" title="添加 Framework"></a>添加 Framework</h3><img class="01.png">
+<p><font size=4><strong>將下列檔案加入 Project</strong></font></p>
+<img class="02.png">
+<p>可以在<a href="https://github.com/Luka-M/unity-in-framework/tree/master/Framework/SpaceShooter/SpaceShooter" title="" target="">GitHub</a>下載，感謝Luka的貢獻</p>
+<h3 id="修改程式碼"><a href="#修改程式碼" class="headerlink" title="修改程式碼"></a>修改程式碼</h3><p>Unity&#x2F;Classes&#x2F;UnityAppController.mm  L:23</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//include &quot;CrashReporter.h&quot;</span></span><br></pre></td></tr></table></figure>
+<p>Unity&#x2F;Classes&#x2F;UnityAppController.mm  L:254</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//UnityInitApplicationNoGraphics([[[NSBundle mainBundle] bundlePath] UTF8String]);</span></span><br><span class="line">UnityInitApplicationNoGraphics([[[<span class="built_in">NSBundle</span> bundleForClass:[<span class="keyword">self</span> <span class="keyword">class</span>]] bundlePath] UTF8String]);</span><br></pre></td></tr></table></figure>
+<p>Unity&#x2F;Classes&#x2F;UnityAppController.mm  L:484</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//InitCrashHandling();</span></span><br></pre></td></tr></table></figure>
+
+<p>Unity&#x2F;Classes&#x2F;UI&#x2F;UnityAppController+ViewHandling.mm  Line:138<br>將 三行 mark 起來</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">    <span class="built_in">NSAssert</span>(_unityView != <span class="literal">nil</span>, <span class="string">@&quot;_unityView should be inited at this point&quot;</span>);</span><br><span class="line"><span class="comment">//    NSAssert(_window != nil, @&quot;_window should be inited at this point&quot;);</span></span><br><span class="line"></span><br><span class="line">    _rootController = [<span class="keyword">self</span> createRootViewController];</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> willStartWithViewController: _rootController];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSAssert</span>(_rootView != <span class="literal">nil</span>, <span class="string">@&quot;_rootView  should be inited at this point&quot;</span>);</span><br><span class="line">    <span class="built_in">NSAssert</span>(_rootController != <span class="literal">nil</span>, <span class="string">@&quot;_rootController should be inited at this point&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//    [_window makeKeyAndVisible];</span></span><br><span class="line">    [<span class="built_in">UIView</span> setAnimationsEnabled: <span class="literal">NO</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> extract it?</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//    ShowSplashScreen(_window);</span></span><br></pre></td></tr></table></figure>
+
+<p>Unity&#x2F;Classes&#x2F;UI&#x2F;UnityAppController+ViewHandling.mm  Line:187</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    remove the following 3 lines since we don&#x27;t want Unity to install its own UIViewController</span></span><br><span class="line"><span class="comment">//    [_window addSubview: _rootView];</span></span><br><span class="line"><span class="comment">//    _window.rootViewController = _rootController;</span></span><br><span class="line"><span class="comment">//    [_window bringSubviewToFront: _rootView];</span></span><br></pre></td></tr></table></figure>
+
+
 <p>到這邊應該成功輸出成一個 Framework !</p>
-<h3 id="關於-bitcode"><a href="#關於-bitcode" class="headerlink" title="關於 bitcode"></a>關於 bitcode</h3><p>在 Project Archive 的時候，出現 Error Message<br>
+<h3 id="關於-bitcode"><a href="#關於-bitcode" class="headerlink" title="關於 bitcode"></a>關於 bitcode</h3><p>在 Project Archive 的時候，出現 Error Message </p>
+
 <font color="red">
 Bitcode bundle could not be generated because 'XXX' was built without full bitcode. All frameworks and dylibs for bitcode must be generated from Xcode Archive or Install build file 'XXX' for architecture arm64
 </font>
-<br>搜尋到此篇<a href="https://juejin.im/post/5ab311c76fb9a028c42e18a9" target="_blank" rel="noopener">文章</a>成功解決</p>
-<p>因為我是使用 xcodebuild 編譯<br>所以在 build setting 的 User-Define Setting 加上<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&apos;BITCODE_GENERATION_MODE&apos; =&gt; &apos;bitcode&apos;</span><br></pre></td></tr></table></figure></p>
-<p>參考資料：<br><a href="https://www.kodbiro.com/blog/a-great-way-to-integrate-unity-into-the-native-ios-app/" target="_blank" rel="noopener">Unity To Framework</a><br><a href="https://juejin.im/post/5ab311c76fb9a028c42e18a9" target="_blank" rel="noopener">關於 bitcode</a></p>
+
+<p>搜尋到此篇<a href="https://juejin.im/post/5ab311c76fb9a028c42e18a9" title="" target="">文章</a>成功解決</p>
+<p>因為我是使用 xcodebuild 編譯<br>所以在 build setting 的 User-Define Setting 加上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#x27;BITCODE_GENERATION_MODE&#x27; =&gt; &#x27;bitcode&#x27;</span><br></pre></td></tr></table></figure>
+
+
+<p>參考資料：</p>
+<a href="https://www.kodbiro.com/blog/a-great-way-to-integrate-unity-into-the-native-ios-app/" title="" target="">Unity To Framework</a>
+<a href="https://juejin.im/post/5ab311c76fb9a028c42e18a9" title="" target="">關於 bitcode</a>
+
 <p>Unity 版本: 2019.1.3f1<br>XCode 版本: 10.2.1 (10E1001)<br>Deployment Target : 10.0</p>
 ]]></content>
       <categories>
