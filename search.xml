@@ -101,15 +101,36 @@
     <title>Swift 整合 Unity Project 遇到的問題</title>
     <url>/2019/05/24/unity-swift-issue/</url>
     <content><![CDATA[<p>今天在做 swift 專案 與 unity 整合的時候<br>出現了 error ,</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">No member named &apos;GetAotId&apos; in &apos;il2cpp::icalls::mscorlib::System::Reflection::Assembly&apos;</span><br><span class="line">No member named &apos;ParseAssemblyName&apos; in &apos;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&apos;</span><br><span class="line">No member named &apos;get_public_token&apos; in &apos;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&apos;</span><br><span class="line">No member named &apos;GetNativeName&apos; in &apos;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&apos;</span><br><span class="line">No member named &apos;CustomAttributeData&apos; in namespace &apos;il2cpp::icalls::mscorlib::System::Reflection&apos;; did you mean &apos;CustomAttributesCache&apos;?</span><br><span class="line">No member named &apos;ResolveArgumentsInternal&apos; in &apos;CustomAttributesCache&apos;</span><br></pre></td></tr></table></figure>
-<p>如圖<br><img src="/hexoblog/2019/unity-swift-issue/issue.png"></p>
-<p><br><br>解決辦法：<br>在 XCode BuildSetting 中，找尋 Other C Flags<br>添加<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-DNET_4_0</span><br></pre></td></tr></table></figure><br>如圖<br><img src="/hexoblog/2019/unity-swift-issue/other-c-flags.png"></p>
-<p><hr><br>遇到問題：AVPlayerViewController issue<br><img src="/hexoblog/2019/unity-swift-issue/issue2.png"></p>
-<p>解決辦法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">新增 framework AVKit</span><br></pre></td></tr></table></figure></p>
-<p><hr><br>太多警告！調整 Build Settings</p>
-<p>XCode “No previous prototype for function”<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Missing Function Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure></p>
-<p>XCode “This function declaration is not a prototype”<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Strict Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure></p>
-<p>Code will never be executed<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Unreachable Code】 Yes -&gt; No</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">No member named &#x27;GetAotId&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::Assembly&#x27;</span><br><span class="line">No member named &#x27;ParseAssemblyName&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;get_public_token&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;GetNativeName&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;CustomAttributeData&#x27; in namespace &#x27;il2cpp::icalls::mscorlib::System::Reflection&#x27;; did you mean &#x27;CustomAttributesCache&#x27;?</span><br><span class="line">No member named &#x27;ResolveArgumentsInternal&#x27; in &#x27;CustomAttributesCache&#x27;</span><br></pre></td></tr></table></figure>
+<p>如圖</p>
+<img class="issue.png">
+
+<br>
+解決辦法：
+在 XCode BuildSetting 中，找尋 Other C Flags 
+添加 
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-DNET_4_0</span><br></pre></td></tr></table></figure>
+如圖
+<img src="/2019/05/24/unity-swift-issue/other-c-flags.png" class="">
+<hr>
+遇到問題：AVPlayerViewController issue
+<img src="/2019/05/24/unity-swift-issue/issue2.png" class="">
+
+<p>解決辦法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">新增 framework AVKit</span><br></pre></td></tr></table></figure>
+
+<hr>
+太多警告！調整 Build Settings
+
+<p>XCode “No previous prototype for function”</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Missing Function Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
+
+<p>XCode “This function declaration is not a prototype”</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Strict Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
+
+<p>Code will never be executed</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Unreachable Code】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
+
 <p><br><br><br>Unity 版本: 2019.1.3f1<br>XCode 版本: 10.2.1 (10E1001)</p>
 ]]></content>
       <categories>
