@@ -238,4 +238,30 @@ Bitcode bundle could not be generated because 'XXX' was built without full bitco
         <tag>unity</tag>
       </tags>
   </entry>
+  <entry>
+    <title>WPF 使用 DI 模式</title>
+    <url>/hexoblog/2023/11/21/netcore-wpf-di/</url>
+    <content><![CDATA[<p>安裝步驟</p>
+<ol>
+<li>從 nuget 安裝  Microsoft.Extensions.DependencyInjection</li>
+</ol>
+<img src="/hexoblog/2023/11/21/netcore-wpf-di/001.png" class="">
+
+<ol start="2">
+<li>於 App.xaml.cs 建立 builder</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.DependencyInjection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">App</span> : <span class="title">Application</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> IServiceProvider ServiceProvider &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">App</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> service = <span class="keyword">new</span> ServiceCollection();</span><br><span class="line"></span><br><span class="line">        service.AddSingleton&lt;MainWindow&gt;();</span><br><span class="line">        service.AddHttpClient();</span><br><span class="line"></span><br><span class="line">        ServiceProvider = service.BuildServiceProvider();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnStartup</span>(<span class="params">StartupEventArgs e</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">base</span>.OnStartup(e);</span><br><span class="line">        <span class="keyword">var</span> mainWindow = ServiceProvider.GetRequiredService&lt;MainWindow&gt;();</span><br><span class="line">        mainWindow.Show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>於 App.xaml 移除 StartupUri&#x3D;”MainWindow.xaml”</li>
+</ol>
+<img src="/hexoblog/2023/11/21/netcore-wpf-di/002.png" class="">
+
+<p>Enjoy ~</p>
+]]></content>
+      <tags>
+        <tag>netcore</tag>
+        <tag>wpf</tag>
+      </tags>
+  </entry>
 </search>
