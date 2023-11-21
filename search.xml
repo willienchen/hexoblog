@@ -5,9 +5,10 @@
     <url>/hexoblog/2020/05/22/cocos-orienation/</url>
     <content><![CDATA[<p>利用 cocos creator 開發 手機平台 想要偵測手機的轉向 </p>
 <p>在 模擬器的環境時 偵測 window 的 resize 來進行<br>在 web Debug 模式下 只要對 view 的 canvas-resize 進行監聽就可以達成了 !</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (cc.sys.isNative) &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>,  () =&gt; &#123;&#125;, <span class="literal">false</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cc.view.on(<span class="string">"canvas-resize"</span>, () =&gt; &#123;&#125;, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isNative</span>) &#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;resize&quot;</span>,  <span class="function">() =&gt;</span> &#123;&#125;, <span class="literal">false</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cc.<span class="property">view</span>.<span class="title function_">on</span>(<span class="string">&quot;canvas-resize&quot;</span>, <span class="function">() =&gt;</span> &#123;&#125;, <span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>至於方向的判定，利用以下的程式碼可以達成</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> currentSize = cc.view.getFrameSize();</span><br><span class="line"><span class="keyword">this</span>.onOrientationChange(currentSize.width &gt; currentSize.height ? Orientation.Horizontal : Orientation.Vertical);</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> currentSize = cc.<span class="property">view</span>.<span class="title function_">getFrameSize</span>();</span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">onOrientationChange</span>(currentSize.<span class="property">width</span> &gt; currentSize.<span class="property">height</span> ? <span class="title class_">Orientation</span>.<span class="property">Horizontal</span> : <span class="title class_">Orientation</span>.<span class="property">Vertical</span>);</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>cocos</tag>
       </tags>
@@ -15,51 +16,11 @@
   <entry>
     <title>前端開發使用到的資源</title>
     <url>/hexoblog/2019/08/01/frontend-lib/</url>
-    <content><![CDATA[<h1 id="身為一個菜鳥工程師-就要把看到的東西記錄下來"><a href="#身為一個菜鳥工程師-就要把看到的東西記錄下來" class="headerlink" title="身為一個菜鳥工程師 就要把看到的東西記錄下來"></a>身為一個菜鳥工程師 就要把看到的東西記錄下來</h1><h3 id="資源庫"><a href="#資源庫" class="headerlink" title="資源庫"></a>資源庫</h3><p>今天發現一個似乎不錯用的服務 前端靜態資源庫<br>前端常用的 library  都有<br>間單的搜尋並且列出版本<br><a href="https://cdn.baomitu.com/" target="_blank" rel="noopener">https://cdn.baomitu.com/</a></p>
-<h3 id="小圖示"><a href="#小圖示" class="headerlink" title="小圖示"></a>小圖示</h3><p>開發會用到一些小圖示，可以看看這個<br><a href="https://fontawesome.com/" target="_blank" rel="noopener">https://fontawesome.com/</a></p>
+    <content><![CDATA[<h1 id="身為一個菜鳥工程師-就要把看到的東西記錄下來"><a href="#身為一個菜鳥工程師-就要把看到的東西記錄下來" class="headerlink" title="身為一個菜鳥工程師 就要把看到的東西記錄下來"></a>身為一個菜鳥工程師 就要把看到的東西記錄下來</h1><h3 id="資源庫"><a href="#資源庫" class="headerlink" title="資源庫"></a>資源庫</h3><p>今天發現一個似乎不錯用的服務 前端靜態資源庫<br>前端常用的 library  都有<br>間單的搜尋並且列出版本<br><a href="https://cdn.baomitu.com/">https://cdn.baomitu.com/</a></p>
+<h3 id="小圖示"><a href="#小圖示" class="headerlink" title="小圖示"></a>小圖示</h3><p>開發會用到一些小圖示，可以看看這個<br><a href="https://fontawesome.com/">https://fontawesome.com/</a></p>
 ]]></content>
       <categories>
         <category>Frontend</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>使用 Lunchctl 啟動 unity cache server</title>
-    <url>/hexoblog/2019/05/22/macos-launchctl/</url>
-    <content><![CDATA[<p>今天在安裝 unity cache server</p>
-<p>目標能夠在 mac os 的 server 上自動執行<br>所以研究了一下 launchctl</p>
-<p>unity cache server 是使用 node.js 運行的</p>
-<p>在寫 plist 之前 ，必須先找到 node.js 和 unity cache server 的路徑</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">which</span> node</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">which</span> unity-cache-server</span><br></pre></td></tr></table></figure>
-<p>之後建立一個 plist 檔案</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">"1.0"</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;Label&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;com.cas.untiy.cache&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;ProgramArguments&lt;/key&gt;</span><br><span class="line">	&lt;array&gt;</span><br><span class="line">		&lt;string&gt;/usr/<span class="built_in">local</span>/bin/node&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;/usr/<span class="built_in">local</span>/bin/unity-cache-server&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;--port&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;5567&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;-P&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;/UnityCache&lt;/string&gt;</span><br><span class="line">	&lt;/array&gt;</span><br><span class="line">	&lt;key&gt;RunAtLoad&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;UserName&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;cas&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;StandardErrorPath&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;/tmp/cache.err&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;StandardOutPath&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;/tmp/cache.out&lt;/string&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
-<p>Label：顯示的名稱<br>ProgramArguments：運行的命令,全部組合起來就是</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/bin/node /usr/<span class="built_in">local</span>/bin/unity-cache-server --port 5567 -P /UnityCache</span><br></pre></td></tr></table></figure>
-<p>StandardErrorPath : Error Log 的位置<br>StandardOutPath：Log 位置</p>
-<p>之後將 plist 放入 /Library/LaunchDaemond 底下運行就可以了</p>
-<p>參考:<br><a href="https://hatemegalaxy.blogspot.com/2016/01/mac-launchd-use-launchd-to-manage-and.html" target="_blank" rel="noopener">https://hatemegalaxy.blogspot.com/2016/01/mac-launchd-use-launchd-to-manage-and.html</a></p>
-]]></content>
-      <tags>
-        <tag>macos</tag>
-        <tag>shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/hexoblog/2023/11/16/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<h3 id="Create-About-Page"><a href="#Create-About-Page" class="headerlink" title="Create About Page"></a>Create About Page</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new page <span class="string">"about"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
       </categories>
   </entry>
   <entry>
@@ -67,16 +28,23 @@
     <url>/hexoblog/2019/05/22/ssh-agent/</url>
     <content><![CDATA[<p>解決在 ternimal 使用 git , ssh 每次都要輸入密碼</p>
 <p>既然都使用 ssh key 了  不應該這麼麻煩<br>上網搜尋了一下資料<br>使用 ssh-agent 可以解決問題</p>
-<p>查看目前的 ssh-agent 進程<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pgrep ssh-agent</span><br></pre></td></tr></table></figure></p>
-<p>啟動<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">eval</span> `ssh-agent`</span><br></pre></td></tr></table></figure></p>
+<p>查看目前的 ssh-agent 進程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pgrep ssh-agent</span><br></pre></td></tr></table></figure>
+
+<p>啟動</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">eval</span> `ssh-agent`</span><br></pre></td></tr></table></figure>
 <p>直接下指令 ssh-agent 也可以啟動<br>但參考連結比較推薦使用 eval </p>
-<p>刪除關閉,記得帶入pid<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SSH_AGENT_PID=[pid] ; <span class="built_in">export</span> SSH_AGENT_PID;</span><br><span class="line">ssh-agnet -k</span><br></pre></td></tr></table></figure></p>
-<p>ssh-add 新增 key<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">新增: ssh-add file </span><br><span class="line">查看: ssh-add -L[l]</span><br><span class="line">刪除: ssh-add -d</span><br><span class="line">全部刪除: ssh-add -D</span><br></pre></td></tr></table></figure></p>
-<p>參考：<br><a href="http://www.peter-zhou.com/chapter1/san-3001-ssh-fu-wu/ssh-agent-dai-li.html" target="_blank" rel="noopener">http://www.peter-zhou.com/chapter1/san-3001-ssh-fu-wu/ssh-agent-dai-li.html</a><br><a href="https://www.cnblogs.com/panblack/p/Secure_ssh_trust_connection.html" target="_blank" rel="noopener">https://www.cnblogs.com/panblack/p/Secure_ssh_trust_connection.html</a></p>
+<p>刪除關閉,記得帶入pid</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SSH_AGENT_PID=[pid] ; <span class="built_in">export</span> SSH_AGENT_PID;</span><br><span class="line">ssh-agnet -k</span><br></pre></td></tr></table></figure>
+<p>ssh-add 新增 key</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">新增: ssh-add file </span><br><span class="line">查看: ssh-add -L[l]</span><br><span class="line">刪除: ssh-add -d</span><br><span class="line">全部刪除: ssh-add -D</span><br></pre></td></tr></table></figure>
+
+
+<p>參考：<br><a href="http://www.peter-zhou.com/chapter1/san-3001-ssh-fu-wu/ssh-agent-dai-li.html">http://www.peter-zhou.com/chapter1/san-3001-ssh-fu-wu/ssh-agent-dai-li.html</a><br><a href="https://www.cnblogs.com/panblack/p/Secure_ssh_trust_connection.html">https://www.cnblogs.com/panblack/p/Secure_ssh_trust_connection.html</a></p>
 ]]></content>
       <tags>
-        <tag>shell</tag>
         <tag>hexo</tag>
+        <tag>shell</tag>
         <tag>git</tag>
       </tags>
   </entry>
@@ -86,9 +54,14 @@
     <content><![CDATA[<p>在新 clone 的 hexo blog </p>
 <p>先執行 </p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<p>之後安裝 theme<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/tufu9441/maupassant-hexo.git themes/maupassant</span><br></pre></td></tr></table></figure></p>
-<p>為文章添加分類<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">categories : &quot;xxxx&quot;</span><br></pre></td></tr></table></figure></p>
-<p>詳細可參考：<a href="https://github.com/tufu9441/maupassant-hexo" target="_blank" rel="noopener">https://github.com/tufu9441/maupassant-hexo</a></p>
+
+<p>之後安裝 theme</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/tufu9441/maupassant-hexo.git themes/maupassant</span><br></pre></td></tr></table></figure>
+
+<p>為文章添加分類</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories : &quot;xxxx&quot;</span><br></pre></td></tr></table></figure>
+
+<p>詳細可參考：<a href="https://github.com/tufu9441/maupassant-hexo">https://github.com/tufu9441/maupassant-hexo</a></p>
 ]]></content>
       <categories>
         <category>Hexo</category>
@@ -98,47 +71,29 @@
       </tags>
   </entry>
   <entry>
-    <title>Swift 整合 Unity Project 遇到的問題</title>
-    <url>/hexoblog/2019/05/24/unity-swift-issue/</url>
-    <content><![CDATA[<p>今天在做 swift 專案 與 unity 整合的時候<br>出現了 error ,</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">No member named &#x27;GetAotId&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::Assembly&#x27;</span><br><span class="line">No member named &#x27;ParseAssemblyName&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;get_public_token&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;GetNativeName&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;CustomAttributeData&#x27; in namespace &#x27;il2cpp::icalls::mscorlib::System::Reflection&#x27;; did you mean &#x27;CustomAttributesCache&#x27;?</span><br><span class="line">No member named &#x27;ResolveArgumentsInternal&#x27; in &#x27;CustomAttributesCache&#x27;</span><br></pre></td></tr></table></figure>
-<p>如圖</p>
-<img class="issue.png">
+    <title>使用 Lunchctl 啟動 unity cache server</title>
+    <url>/hexoblog/2019/05/22/macos-launchctl/</url>
+    <content><![CDATA[<p>今天在安裝 unity cache server</p>
+<p>目標能夠在 mac os 的 server 上自動執行<br>所以研究了一下 launchctl</p>
+<p>unity cache server 是使用 node.js 運行的</p>
+<p>在寫 plist 之前 ，必須先找到 node.js 和 unity cache server 的路徑</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">which</span> node</span><br></pre></td></tr></table></figure>
 
-<br>
-解決辦法：
-在 XCode BuildSetting 中，找尋 Other C Flags 
-添加 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-DNET_4_0</span><br></pre></td></tr></table></figure>
-如圖
-<img class="other-c-flags.png">
-<hr>
-遇到問題：AVPlayerViewController issue
-<img class="issue2.png">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">which</span> unity-cache-server</span><br></pre></td></tr></table></figure>
 
-<p>解決辦法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">新增 framework AVKit</span><br></pre></td></tr></table></figure>
+<p>之後建立一個 plist 檔案</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span><br><span class="line">&lt;plist version=<span class="string">&quot;1.0&quot;</span>&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;Label&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;com.cas.untiy.cache&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;ProgramArguments&lt;/key&gt;</span><br><span class="line">	&lt;array&gt;</span><br><span class="line">		&lt;string&gt;/usr/local/bin/node&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;/usr/local/bin/unity-cache-server&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;--port&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;5567&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;-P&lt;/string&gt;</span><br><span class="line">		&lt;string&gt;/UnityCache&lt;/string&gt;</span><br><span class="line">	&lt;/array&gt;</span><br><span class="line">	&lt;key&gt;RunAtLoad&lt;/key&gt;</span><br><span class="line">	&lt;<span class="literal">true</span>/&gt;</span><br><span class="line">	&lt;key&gt;UserName&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;cas&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;StandardErrorPath&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;/tmp/cache.err&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;StandardOutPath&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;/tmp/cache.out&lt;/string&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
 
-<hr>
-太多警告！調整 Build Settings
+<p>Label：顯示的名稱<br>ProgramArguments：運行的命令,全部組合起來就是</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/local/bin/node /usr/local/bin/unity-cache-server --port 5567 -P /UnityCache</span><br></pre></td></tr></table></figure>
 
-<p>XCode “No previous prototype for function”</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Missing Function Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
-
-<p>XCode “This function declaration is not a prototype”</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Strict Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
-
-<p>Code will never be executed</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Unreachable Code】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
-
-<p><br><br><br>Unity 版本: 2019.1.3f1<br>XCode 版本: 10.2.1 (10E1001)</p>
+<p>StandardErrorPath : Error Log 的位置<br>StandardOutPath：Log 位置</p>
+<p>之後將 plist 放入 &#x2F;Library&#x2F;LaunchDaemond 底下運行就可以了</p>
+<p>參考:<br><a href="https://hatemegalaxy.blogspot.com/2016/01/mac-launchd-use-launchd-to-manage-and.html">https://hatemegalaxy.blogspot.com/2016/01/mac-launchd-use-launchd-to-manage-and.html</a></p>
 ]]></content>
-      <categories>
-        <category>Unity</category>
-      </categories>
       <tags>
-        <tag>swift</tag>
-        <tag>xcode</tag>
+        <tag>shell</tag>
+        <tag>macos</tag>
       </tags>
   </entry>
   <entry>
@@ -233,9 +188,9 @@ Bitcode bundle could not be generated because 'XXX' was built without full bitco
         <category>Unity</category>
       </categories>
       <tags>
+        <tag>unity</tag>
         <tag>swift</tag>
         <tag>xcode</tag>
-        <tag>unity</tag>
       </tags>
   </entry>
   <entry>
@@ -259,9 +214,56 @@ Bitcode bundle could not be generated because 'XXX' was built without full bitco
 
 <p>Enjoy ~</p>
 ]]></content>
+      <categories>
+        <category>WPF</category>
+      </categories>
       <tags>
-        <tag>netcore</tag>
-        <tag>wpf</tag>
+        <tag>WPF</tag>
+        <tag>netCore</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Swift 整合 Unity Project 遇到的問題</title>
+    <url>/hexoblog/2019/05/24/unity-swift-issue/</url>
+    <content><![CDATA[<p>今天在做 swift 專案 與 unity 整合的時候<br>出現了 error ,</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">No member named &#x27;GetAotId&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::Assembly&#x27;</span><br><span class="line">No member named &#x27;ParseAssemblyName&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;get_public_token&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;GetNativeName&#x27; in &#x27;il2cpp::icalls::mscorlib::System::Reflection::AssemblyName&#x27;</span><br><span class="line">No member named &#x27;CustomAttributeData&#x27; in namespace &#x27;il2cpp::icalls::mscorlib::System::Reflection&#x27;; did you mean &#x27;CustomAttributesCache&#x27;?</span><br><span class="line">No member named &#x27;ResolveArgumentsInternal&#x27; in &#x27;CustomAttributesCache&#x27;</span><br></pre></td></tr></table></figure>
+<p>如圖</p>
+<img class="issue.png">
+
+<br>
+解決辦法：
+在 XCode BuildSetting 中，找尋 Other C Flags 
+添加 
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-DNET_4_0</span><br></pre></td></tr></table></figure>
+如圖
+<img class="other-c-flags.png">
+<hr>
+遇到問題：AVPlayerViewController issue
+<img class="issue2.png">
+
+<p>解決辦法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">新增 framework AVKit</span><br></pre></td></tr></table></figure>
+
+<hr>
+太多警告！調整 Build Settings
+
+<p>XCode “No previous prototype for function”</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Missing Function Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
+
+<p>XCode “This function declaration is not a prototype”</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Strict Prototypes】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
+
+<p>Code will never be executed</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【Build Settings】-&gt;【Unreachable Code】 Yes -&gt; No</span><br></pre></td></tr></table></figure>
+
+<p><br><br><br>Unity 版本: 2019.1.3f1<br>XCode 版本: 10.2.1 (10E1001)</p>
+]]></content>
+      <categories>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>swift</tag>
+        <tag>xcode</tag>
       </tags>
   </entry>
 </search>
